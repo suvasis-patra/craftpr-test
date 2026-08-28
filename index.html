@@ -1,9 +1,920 @@
 <!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+    <meta
+      name="description"
+      content="A modern SaaS platform built to help teams move faster, work smarter, and ship better."
+    />
+
+    <title>Flowly — Build Better, Ship Faster</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+      :root {
+        --bg: #fafafa;
+        --foreground: #111111;
+        --muted: #6b6b6b;
+        --border: #e8e8e8;
+        --card: #ffffff;
+        --accent: #635bff;
+        --accent-dark: #5148e5;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--foreground);
+        font-family: "DM Sans", sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      /* NAVBAR */
+
+      nav {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 21px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        background: var(--foreground);
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 15px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        color: #555;
+        font-size: 14px;
+      }
+
+      .nav-links a {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        color: #111;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+      }
+
+      .login {
+        color: #555;
+      }
+
+      .btn {
+        border: 0;
+        cursor: pointer;
+        font: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border-radius: 9px;
+        padding: 11px 17px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+      }
+
+      .btn-dark {
+        background: #111;
+        color: white;
+      }
+
+      .btn-dark:hover {
+        background: #2a2a2a;
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+        padding: 14px 21px;
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(99, 91, 255, 0.2);
+      }
+
+      .btn-outline {
+        background: white;
+        border: 1px solid var(--border);
+        padding: 14px 21px;
+      }
+
+      .btn-outline:hover {
+        border-color: #bbb;
+        transform: translateY(-2px);
+      }
+
+      /* HERO */
+
+      .hero {
+        text-align: center;
+        padding: 105px 0 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 650px;
+        height: 650px;
+        background: rgba(99, 91, 255, 0.07);
+        filter: blur(100px);
+        border-radius: 50%;
+        left: 50%;
+        top: -350px;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .badge {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--border);
+        background: white;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      }
+
+      .badge-dot {
+        width: 7px;
+        height: 7px;
+        background: #32c766;
+        border-radius: 50%;
+      }
+
+      h1 {
+        position: relative;
+        max-width: 850px;
+        margin: 0 auto;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: clamp(48px, 7vw, 78px);
+        line-height: 1.02;
+        letter-spacing: -4px;
+        font-weight: 600;
+      }
+
+      .gradient-text {
+        background: linear-gradient(100deg, #635bff, #a855f7);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-description {
+        position: relative;
+        max-width: 590px;
+        margin: 25px auto 32px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.65;
+      }
+
+      .hero-actions {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .hero-note {
+        position: relative;
+        margin-top: 15px;
+        font-size: 12px;
+        color: #888;
+      }
+
+      /* PRODUCT PREVIEW */
+
+      .preview-wrapper {
+        margin-top: 75px;
+        perspective: 1200px;
+      }
+
+      .preview {
+        background: white;
+        border: 1px solid #dedede;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow:
+          0 40px 100px rgba(0, 0, 0, 0.1),
+          0 10px 30px rgba(0, 0, 0, 0.05);
+        transform: rotateX(3deg);
+      }
+
+      .browser-bar {
+        height: 42px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 0 15px;
+        border-bottom: 1px solid var(--border);
+        background: #fafafa;
+      }
+
+      .browser-dot {
+        width: 9px;
+        height: 9px;
+        background: #ddd;
+        border-radius: 50%;
+      }
+
+      .dashboard {
+        min-height: 440px;
+        display: grid;
+        grid-template-columns: 190px 1fr;
+        text-align: left;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--border);
+        padding: 20px 14px;
+      }
+
+      .side-title {
+        font-family: "Space Grotesk";
+        font-weight: 600;
+        margin-bottom: 25px;
+        padding-left: 8px;
+      }
+
+      .side-item {
+        padding: 9px 10px;
+        margin-bottom: 3px;
+        border-radius: 7px;
+        color: #777;
+        font-size: 13px;
+      }
+
+      .side-item.active {
+        background: #f0efff;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .main-dashboard {
+        padding: 28px;
+      }
+
+      .dashboard-heading {
+        font-family: "Space Grotesk";
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .dashboard-subtitle {
+        color: #888;
+        font-size: 13px;
+        margin-top: 3px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 25px;
+      }
+
+      .stat {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #888;
+      }
+
+      .stat-value {
+        font-family: "Space Grotesk";
+        font-size: 25px;
+        font-weight: 600;
+        margin-top: 5px;
+      }
+
+      .positive {
+        color: #20a85a;
+        font-size: 11px;
+        margin-top: 3px;
+      }
+
+      .chart-card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-top: 15px;
+        padding: 20px;
+      }
+
+      .chart-title {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .chart {
+        height: 170px;
+        margin-top: 20px;
+        display: flex;
+        align-items: end;
+        gap: 10px;
+      }
+
+      .bar {
+        flex: 1;
+        background: linear-gradient(to top, #635bff, #a89fff);
+        border-radius: 5px 5px 0 0;
+        opacity: 0.85;
+      }
+
+      /* LOGOS */
+
+      .trusted {
+        text-align: center;
+        padding: 70px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .trusted p {
+        color: #999;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 30px;
+      }
+
+      .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 55px;
+        color: #888;
+        font-family: "Space Grotesk";
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      /* FEATURES */
+
+      .features {
+        padding: 115px 0;
+      }
+
+      .section-header {
+        max-width: 650px;
+        margin-bottom: 55px;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        margin-bottom: 13px;
+      }
+
+      .section-header h2 {
+        font-family: "Space Grotesk";
+        font-size: clamp(35px, 5vw, 52px);
+        line-height: 1.1;
+        letter-spacing: -2px;
+      }
+
+      .section-header p {
+        margin-top: 15px;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .feature {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 30px;
+        transition: all 0.25s ease;
+      }
+
+      .feature:hover {
+        transform: translateY(-5px);
+        border-color: #d0d0d0;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+      }
+
+      .feature-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: #f0efff;
+        color: var(--accent);
+        font-size: 20px;
+        margin-bottom: 25px;
+      }
+
+      .feature h3 {
+        font-family: "Space Grotesk";
+        font-size: 19px;
+        margin-bottom: 9px;
+      }
+
+      .feature p {
+        color: #777;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      /* CTA */
+
+      .cta {
+        padding: 20px 0 110px;
+      }
+
+      .cta-box {
+        position: relative;
+        overflow: hidden;
+        background: #111;
+        color: white;
+        border-radius: 20px;
+        padding: 75px 30px;
+        text-align: center;
+      }
+
+      .cta-box::before,
+      .cta-box::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: #635bff;
+        filter: blur(100px);
+        opacity: 0.3;
+      }
+
+      .cta-box::before {
+        left: -150px;
+        top: -150px;
+      }
+
+      .cta-box::after {
+        right: -150px;
+        bottom: -150px;
+      }
+
+      .cta-box h2,
+      .cta-box p,
+      .cta-box .btn {
+        position: relative;
+      }
+
+      .cta-box h2 {
+        font-family: "Space Grotesk";
+        font-size: clamp(35px, 5vw, 52px);
+        line-height: 1.1;
+        letter-spacing: -2px;
+        max-width: 650px;
+        margin: auto;
+      }
+
+      .cta-box p {
+        color: #aaa;
+        max-width: 500px;
+        margin: 16px auto 28px;
+      }
+
+      .cta-box .btn {
+        background: white;
+        color: #111;
+      }
+
+      .cta-box .btn:hover {
+        background: #eee;
+      }
+
+      /* FOOTER */
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 30px 0;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #888;
+        font-size: 13px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 25px;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 800px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 75px;
+        }
+
+        h1 {
+          letter-spacing: -2.5px;
+        }
+
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          display: none;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .logos {
+          flex-wrap: wrap;
+          gap: 25px;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .container {
+          width: min(100% - 28px, 1120px);
+        }
+
+        .login {
+          display: none;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .hero-actions .btn {
+          width: 100%;
+        }
+
+        .preview-wrapper {
+          margin-top: 50px;
+        }
+
+        .main-dashboard {
+          padding: 18px;
+        }
+
+        .chart-card {
+          display: none;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          gap: 18px;
+        }
+      }
+    </style>
+    ```
   </head>
-  <body></body>
+
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <a href="#" class="logo">
+            <span class="logo-mark">F</span>
+            Flowly
+          </a>
+
+          ```
+          <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#product">Product</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#docs">Docs</a>
+          </div>
+
+          <div class="nav-actions">
+            <a href="#" class="login">Log in</a>
+            <a href="#" class="btn btn-dark">Get started</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+
+      <section class="hero">
+        <div class="container">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Now available — Start for free
+          </div>
+
+          <h1>
+            Build faster.
+            <br />
+            <span class="gradient-text">Ship smarter.</span>
+          </h1>
+
+          <p class="hero-description">
+            Flowly gives modern teams everything they need to plan, build,
+            collaborate, and ship exceptional products — all in one place.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#" class="btn btn-primary"> Start building free → </a>
+
+            <a href="#product" class="btn btn-outline"> See how it works </a>
+          </div>
+
+          <p class="hero-note">
+            No credit card required · Free forever plan · Setup in 2 minutes
+          </p>
+
+          <!-- PRODUCT PREVIEW -->
+
+          <div class="preview-wrapper" id="product">
+            <div class="preview">
+              <div class="browser-bar">
+                <span class="browser-dot"></span>
+                <span class="browser-dot"></span>
+                <span class="browser-dot"></span>
+              </div>
+
+              <div class="dashboard">
+                <aside class="sidebar">
+                  <div class="side-title">Flowly</div>
+
+                  <div class="side-item active">Overview</div>
+                  <div class="side-item">Projects</div>
+                  <div class="side-item">Analytics</div>
+                  <div class="side-item">Team</div>
+                  <div class="side-item">Settings</div>
+                </aside>
+
+                <div class="main-dashboard">
+                  <div class="dashboard-heading">Good morning, Alex 👋</div>
+
+                  <div class="dashboard-subtitle">
+                    Here's what's happening with your team.
+                  </div>
+
+                  <div class="stats">
+                    <div class="stat">
+                      <div class="stat-label">Active projects</div>
+                      <div class="stat-value">24</div>
+                      <div class="positive">↑ 12% this month</div>
+                    </div>
+
+                    <div class="stat">
+                      <div class="stat-label">Tasks completed</div>
+                      <div class="stat-value">1,284</div>
+                      <div class="positive">↑ 18% this month</div>
+                    </div>
+
+                    <div class="stat">
+                      <div class="stat-label">Team velocity</div>
+                      <div class="stat-value">92%</div>
+                      <div class="positive">↑ 7% this month</div>
+                    </div>
+                  </div>
+
+                  <div class="chart-card">
+                    <div class="chart-title">Project activity</div>
+
+                    <div class="chart">
+                      <div class="bar" style="height: 38%"></div>
+                      <div class="bar" style="height: 55%"></div>
+                      <div class="bar" style="height: 45%"></div>
+                      <div class="bar" style="height: 72%"></div>
+                      <div class="bar" style="height: 63%"></div>
+                      <div class="bar" style="height: 88%"></div>
+                      <div class="bar" style="height: 76%"></div>
+                      <div class="bar" style="height: 96%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUSTED BY -->
+
+      <section class="trusted">
+        <div class="container">
+          <p>Trusted by teams building the future</p>
+
+          <div class="logos">
+            <span>Acme</span>
+            <span>vertex</span>
+            <span>northstar</span>
+            <span>orbit</span>
+            <span>Linear</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+
+      <section class="features" id="features">
+        <div class="container">
+          <div class="section-header">
+            <div class="eyebrow">Everything you need</div>
+
+            <h2>
+              One workspace.
+              <br />
+              Infinite possibilities.
+            </h2>
+
+            <p>
+              Stop switching between tools. Bring your entire workflow together
+              and give your team superpowers.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature">
+              <div class="feature-icon">✦</div>
+
+              <h3>Powerful automation</h3>
+
+              <p>
+                Automate repetitive work and create workflows that run
+                themselves, so your team can focus on what actually matters.
+              </p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">⌁</div>
+
+              <h3>Real-time collaboration</h3>
+
+              <p>
+                Work together in real time with your entire team. Share ideas,
+                track progress, and stay aligned without endless meetings.
+              </p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">◈</div>
+
+              <h3>Actionable insights</h3>
+
+              <p>
+                Turn your team's activity into meaningful insights with
+                analytics designed to help you make better decisions.
+              </p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">⌘</div>
+
+              <h3>Built for developers</h3>
+
+              <p>
+                A powerful API, webhooks, integrations, and developer-first
+                tooling make Flowly easy to fit into your existing stack.
+              </p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">↗</div>
+
+              <h3>Scales with you</h3>
+
+              <p>
+                Start with a small team and grow without worrying about
+                infrastructure, performance, or complicated migrations.
+              </p>
+            </article>
+
+            <article class="feature">
+              <div class="feature-icon">✓</div>
+
+              <h3>Enterprise security</h3>
+
+              <p>
+                Keep your data protected with modern security practices,
+                granular permissions, and reliable infrastructure.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+
+      <section class="cta" id="pricing">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Ready to build something amazing?</h2>
+
+            <p>
+              Join thousands of teams using Flowly to move faster and accomplish
+              more.
+            </p>
+
+            <a href="#" class="btn"> Get started for free → </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <div>© 2026 Flowly. All rights reserved.</div>
+
+          <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
