@@ -1,10 +1,5 @@
 const About = () => {
-  return (
-    <div>
-      About,Hi there wow! The day is not going great. Something very fishy going
-      on
-    </div>
-  );
+  return <div>Now lets see if it works</div>;
 };
 
 export default About;
