@@ -83,6 +83,11 @@ nav {
   color: #111;
 }
 
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -401,6 +406,10 @@ h1 {
 
 .features {
   padding: 115px 0;
+}
+
+.features-alt {
+  background: #f8f8f8;
 }
 
 .section-header {
